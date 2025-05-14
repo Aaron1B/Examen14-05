@@ -1,5 +1,5 @@
 from typing import List
-from scheduler import Scheduler, GanttEntry
+from src.scheduler import Scheduler, GanttEntry
 from proceso import Proceso
 
 class RoundRobinScheduler(Scheduler):

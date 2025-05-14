@@ -8,40 +8,33 @@ class RepositorioProcesos:
         self.procesos = {}
 
     def agregar_proceso(self, proceso: Proceso) -> bool:
-        """Agrega un proceso verificando la unicidad del pid."""
         if proceso.pid in self.procesos:
             return False
         self.procesos[proceso.pid] = proceso
         return True
 
     def listar_procesos(self) -> List[Proceso]:
-        """Lista todos los procesos registrados."""
         return list(self.procesos.values())
 
     def eliminar_proceso(self, pid: int) -> bool:
-        """Elimina un proceso por su pid."""
         if pid in self.procesos:
             del self.procesos[pid]
             return True
         return False
 
     def obtener_proceso(self, pid: int) -> Optional[Proceso]:
-        """Obtiene un proceso dado su pid."""
         return self.procesos.get(pid)
 
     def guardar_json(self, filepath: str) -> None:
-        """Guarda los procesos en un archivo JSON."""
         with open(filepath, 'w', encoding='utf-8') as file:
             json.dump([proceso.__dict__ for proceso in self.procesos.values()], file, ensure_ascii=False, indent=4)
 
     def cargar_json(self, filepath: str) -> None:
-        """Carga los procesos desde un archivo JSON, reemplazando los existentes."""
         with open(filepath, 'r', encoding='utf-8') as file:
             data = json.load(file)
         self.procesos = {item['pid']: Proceso(**item) for item in data}
 
     def guardar_csv(self, filepath: str) -> None:
-        """Guarda los procesos en un archivo CSV."""
         with open(filepath, 'w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter=';')
             writer.writerow(['pid', 'duracion', 'prioridad', 'tiempo_restante', 'tiempo_llegada', 'tiempo_inicio', 'tiempo_fin'])
@@ -50,7 +43,6 @@ class RepositorioProcesos:
                                  proceso.tiempo_llegada, proceso.tiempo_inicio, proceso.tiempo_fin])
 
     def cargar_csv(self, filepath: str) -> None:
-        """Carga los procesos desde un archivo CSV, reemplazando los existentes."""
         with open(filepath, 'r', newline='', encoding='utf-8') as file:
             reader = csv.DictReader(file, delimiter=';')
             self.procesos = {}
