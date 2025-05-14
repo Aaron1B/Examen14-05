@@ -1,0 +1,20 @@
+[
+    {
+        "pid": "print_001",
+        "duracion": 10,
+        "prioridad": 1,
+        "tiempo_restante": 10,
+        "tiempo_llegada": 0,
+        "tiempo_inicio": null,
+        "tiempo_fin": null
+    },
+    {
+        "pid": "print_002",
+        "duracion": 20,
+        "prioridad": 4,
+        "tiempo_restante": 20,
+        "tiempo_llegada": 0,
+        "tiempo_inicio": null,
+        "tiempo_fin": null
+    }
+]
