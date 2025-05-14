@@ -1,6 +1,6 @@
 from typing import List
-from src.scheduler import Scheduler, GanttEntry
-from proceso import Proceso
+from .scheduler import Scheduler, GanttEntry
+from .proceso import Proceso
 
 class FCFSScheduler(Scheduler):
     def planificar(self, procesos: List[Proceso]) -> List[GanttEntry]:

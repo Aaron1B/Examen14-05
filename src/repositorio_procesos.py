@@ -1,7 +1,7 @@
 import json
 import csv
 from typing import List, Optional
-from proceso import Proceso
+from .proceso import Proceso
 
 class RepositorioProcesos:
     def __init__(self):
