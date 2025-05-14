@@ -1,6 +1,9 @@
 from src.proceso import Proceso
 from src.fcfs_scheduler import FCFSScheduler
 from src.repositorio_procesos import RepositorioProcesos
+import os
+
+SAVE_FILE = "procesos.json"
 
 def mostrar_menu():
     print("\n=== Menú Principal ===")
@@ -8,12 +11,19 @@ def mostrar_menu():
     print("2. Listar procesos")
     print("3. Seleccionar algoritmo de planificación")
     print("4. Ejecutar simulación y mostrar resultados")
-    print("5. Guardar procesos")
-    print("6. Cargar procesos")
+    print("5. Guardar procesos manualmente")
+    print("6. Cargar procesos manualmente")
     print("7. Salir")
 
 def main():
     repo = RepositorioProcesos()
+    if os.path.exists(SAVE_FILE):
+        try:
+            repo.cargar_json(SAVE_FILE)
+            print(f"Procesos cargados desde {SAVE_FILE}.")
+        except Exception as e:
+            print(f"Error al cargar procesos desde {SAVE_FILE}: {e}")
+
     scheduler = None
 
     while True:
@@ -28,6 +38,8 @@ def main():
                 proceso = Proceso(pid=pid, duracion=duracion, prioridad=prioridad)
                 if repo.agregar_proceso(proceso):
                     print("Proceso agregado correctamente.")
+                    repo.guardar_json(SAVE_FILE) 
+                    print(f"Procesos guardados automáticamente en {SAVE_FILE}.")
                 else:
                     print("Error: Ya existe un proceso con ese PID.")
             except ValueError as e:
@@ -85,9 +97,13 @@ def main():
             if formato == "json":
                 repo.cargar_json(filepath)
                 print("Procesos cargados desde archivo JSON.")
+                repo.guardar_json(SAVE_FILE) 
+                print(f"Procesos guardados automáticamente en {SAVE_FILE}.")
             elif formato == "csv":
                 repo.cargar_csv(filepath)
                 print("Procesos cargados desde archivo CSV.")
+                repo.guardar_json(SAVE_FILE)  
+                print(f"Procesos guardados automáticamente en {SAVE_FILE}.")
             else:
                 print("Formato inválido.")
 
